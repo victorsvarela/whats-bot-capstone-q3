@@ -70,8 +70,6 @@ const startSock = async () => {
   // sock.ev.on('contacts.set', item => console.log(item.contacts))
 
   sock.ev.on("messages.upsert", async (m) => {
-    console.log(JSON.stringify(m, undefined, 2));
-    console.log("Test:", m.messages);
     const msg = m.messages[0];
     if (
       msg.message?.conversation?.toLowerCase() === "oi" &&
@@ -142,16 +140,22 @@ const startSock = async () => {
       );
 
       const data = res.data;
+      console.log(data);
 
-      const textMsg = `-------------------- DADOS --------------------\n
-Marca: ${data.brand}
-Modelo: ${data.model}
-Ano: ${data.year}
-Cor: ${data.color_car}`;
+      let message = "";
+
+      data.map((item: any) => {
+        const textMsg = `-------------------- DADOS --------------------\n
+        Marca: ${item.brand}
+        Modelo: ${item.model}
+        Ano: ${item.year}
+        Cor: ${item.color_car}`;
+        message += textMsg;
+      });
 
       await sendMessageWTyping(
         {
-          text: textMsg,
+          text: message,
         },
         msg.key.remoteJid!
       );
@@ -163,6 +167,7 @@ Cor: ${data.color_car}`;
       );
 
       const data = res.data;
+      console.log("qqqqqqqqqqqqqq", data);
 
       const textMsg = `-------------------- DADOS --------------------\n
 CNH: ${data.customer_cnh}
