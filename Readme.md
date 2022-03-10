@@ -2,7 +2,7 @@
 
 ### Installing packages with yarn
 ```
-yarn install
+yarn
 ```
 
 ### To run the application with yarn
